@@ -22,9 +22,19 @@ const FormInput = (props: FormInputType) => {
 
   const showVisibilityIcon = () => {
     return showPassword ? (
-      <span onClick={() => setShowPassword(!showPassword)}>Hide</span>
+      <span
+        className='show-password-span'
+        onClick={() => setShowPassword(!showPassword)}
+      >
+        HIDE
+      </span>
     ) : (
-      <span onClick={() => setShowPassword(!showPassword)}>Show</span>
+      <span
+        className='show-password-span'
+        onClick={() => setShowPassword(!showPassword)}
+      >
+        SHOW
+      </span>
     );
   };
 
