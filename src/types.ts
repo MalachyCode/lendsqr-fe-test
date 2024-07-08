@@ -14,3 +14,21 @@ export interface FormInputType {
   errorMessage?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
+
+export interface UsersDataInfoType {
+  icon: string;
+  name: string;
+  total: string;
+}
+
+export interface SidebarContentType {
+  name: string;
+  imgSrc: string;
+  imgAlt: string;
+  imgClassName: string;
+}
+
+export interface SidebarHeaderAndContentType {
+  headerName: string;
+  contentsData: Array<SidebarContentType>;
+}
