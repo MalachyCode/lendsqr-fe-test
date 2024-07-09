@@ -2,6 +2,7 @@ import './Dashboard.scss';
 import Logo from '/lendsqr-logo.png';
 import LogoImg from '/lendsr-Union.png';
 import arrowHeadDownIcon from '/arrow-head-down.png';
+import filterResultsButton from '/filter-results-button.svg';
 import briefcaseIcon from '/briefcase-1.png';
 import homeIcon from '/home-1.png';
 import businessAvatar from '/businessAvatar.png';
@@ -9,7 +10,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import RenderSidebarContentsAndHeader, {
   RenderSidebarContents,
@@ -17,6 +17,12 @@ import RenderSidebarContentsAndHeader, {
 import RenderUsersInfo from '../../components/RenderUserInfo';
 import { usersData } from './usersData';
 import { sidebarContentsData } from './sidebarContentsData';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {
+  statusColumnClassname,
+  tableBodyContents,
+  tableHeaders,
+} from './tableData';
 
 const Dashboard = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -27,7 +33,7 @@ const Dashboard = () => {
         <div className='hamburger-container'>
           <MenuIcon
             className='hamburger'
-            onClick={() => setOpenSideBar(true)}
+            onClick={() => setOpenSideBar(!openSideBar)}
           />
         </div>
         <div className='top-left'>
@@ -60,10 +66,6 @@ const Dashboard = () => {
       </div>
       <div className='body'>
         <div className={'side-bar ' + (openSideBar && 'active')}>
-          <CloseIcon
-            className='close-icon'
-            onClick={() => setOpenSideBar(false)}
-          />
           <div className='side-bar-top'>
             <div className='switch-organisation-option'>
               <div className='left'>
@@ -97,6 +99,7 @@ const Dashboard = () => {
               contentsData={content.contentsData}
             />
           ))}
+          <div className='empty-div'></div>
         </div>
         <div className='main-body'>
           <div className='container'>
@@ -110,7 +113,51 @@ const Dashboard = () => {
                 />
               ))}
             </div>
-            <div className='table-container'></div>
+            <div className='table-container'>
+              <table className='table'>
+                <thead>
+                  <tr>
+                    {tableHeaders.map((header) => (
+                      <td>
+                        <div className='column-header' key={header.id}>
+                          <span>{header.name}</span>
+                          <img
+                            src={filterResultsButton}
+                            alt='filter-results-button'
+                          />
+                        </div>
+                      </td>
+                    ))}
+                    <td className='menu-column'></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableBodyContents.map((contentBody) => (
+                    <tr key={contentBody.id}>
+                      {contentBody.contents.map((content) => (
+                        <td key={content.id}>
+                          <div className='column-body' key={content.id}>
+                            <span className={statusColumnClassname(content)}>
+                              {content.name}
+                            </span>
+                          </div>
+                        </td>
+                      ))}
+                      <td>
+                        <div className='column-body' key={7}>
+                          <MoreVertIcon className='more-icon' />
+                        </div>
+                      </td>
+                      <span className='divider'></span>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className='footer-container'>
+              <div className='footer-nav'></div>
+            </div>
           </div>
         </div>
       </div>
