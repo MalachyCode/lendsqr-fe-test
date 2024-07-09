@@ -71,3 +71,14 @@ export const tableBodyContents = [
     ],
   },
 ];
+
+export const statusColumnClassname = (content: { id: number; name: string }) =>
+  content.name === 'Blacklisted'
+    ? 'blacklisted'
+    : content.name === 'Inactive'
+    ? 'inactive'
+    : content.name === 'Pending'
+    ? 'pending'
+    : content.name === 'Active'
+    ? 'active'
+    : '';
