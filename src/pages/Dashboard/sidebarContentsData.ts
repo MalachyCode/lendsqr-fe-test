@@ -18,6 +18,7 @@ import reportsIcon from '/reports-icon.svg';
 import preferencesIcon from '/preferences-icon.svg';
 import feesAndPricingIcon from '/fees-and-pricing-icon.svg';
 import auditLogsIcon from '/audit-logs-icon.svg';
+import systemMessagesIcon from '/systems-messages-icon.svg';
 
 export const sidebarContentsData: Array<SidebarHeaderAndContentType> = [
   {
@@ -152,6 +153,12 @@ export const sidebarContentsData: Array<SidebarHeaderAndContentType> = [
         name: 'Audit Logs',
         imgAlt: 'audit logs',
         imgClassName: 'audit-logs-icon',
+      },
+      {
+        imgSrc: systemMessagesIcon,
+        name: 'Systems Messages',
+        imgAlt: 'Systems messages icon',
+        imgClassName: 'systems-messages-icon',
       },
     ],
   },
