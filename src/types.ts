@@ -32,3 +32,23 @@ export interface SidebarHeaderAndContentType {
   headerName: string;
   contentsData: Array<SidebarContentType>;
 }
+
+export interface FilterBoxInputsType {
+  id?: number;
+  title: string;
+  name: string;
+  type: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface FilterResultsBoxType {
+  showFilterBox: boolean;
+  onOrganizationChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onStatusChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  filterBoxData: Array<FilterBoxInputsType>;
+  organizationValue: string;
+  statusValue: string;
+  onFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onResetClick: () => void;
+}
