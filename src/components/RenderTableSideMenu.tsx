@@ -1,4 +1,4 @@
-import { sideMenuOptions } from '../pages/Dashboard/filrtBoxAndSideMenuData';
+import { sideMenuOptions } from '../pages/Dashboard/filterBoxAndSideMenuData';
 
 const RenderTableSideMenuBox = (props: {
   showSideMenuBox: boolean;
