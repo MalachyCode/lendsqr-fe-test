@@ -1,0 +1,90 @@
+.dashboard {
+  .body {
+    .main-body {
+      .container {
+        width: 90%;
+        margin: auto;
+
+        .page-head {
+          display: flex;
+          // height: 110px;
+          justify-content: space-between;
+
+          .left {
+            width: 40%;
+
+            .back-button {
+              display: flex;
+              align-items: center;
+              width: 150px;
+              cursor: pointer;
+
+              img {
+                margin-top: 2px;
+              }
+
+              p {
+                color: #213f7d;
+                padding: 0;
+                margin: 0 5px;
+                font-size: 14px;
+              }
+            }
+          }
+          .right {
+            width: 60%;
+            display: flex;
+            justify-content: end;
+
+            .buttons-container {
+              display: flex;
+              height: 70px;
+              width: 300px;
+              justify-content: space-between;
+              align-items: end;
+              margin-top: 12px;
+
+              div {
+                width: 120px;
+                height: 20px;
+                padding: 5px;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 16.42px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &.blacklist-btn {
+                  border: 1px solid #e4033b;
+                  color: #e4033b;
+                }
+
+                &.activate-btn {
+                  border: 1px solid #39cdcc;
+                  color: #39cdcc;
+                }
+              }
+
+              @media (max-width: 576px) {
+                flex-direction: column;
+                height: 70%;
+                margin-top: 2.5%;
+              }
+            }
+          }
+        }
+        .user-summary {
+          width: 100%;
+          height: 150px;
+          background: #fff;
+          img {
+            width: 50px;
+          }
+          // background: #000;
+        }
+      }
+    }
+  }
+}
