@@ -1,106 +1,95 @@
 import './Dashboard.scss';
-import Logo from '/lendsqr-logo.png';
-import LogoImg from '/lendsr-Union.png';
-import arrowHeadDownIcon from '/arrow-head-down.png';
 import filterResultsButton from '/filter-results-button.svg';
-import briefcaseIcon from '/briefcase-1.png';
-import homeIcon from '/home-1.png';
-import businessAvatar from '/businessAvatar.png';
-import SearchIcon from '@mui/icons-material/Search';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
-import RenderSidebarContentsAndHeader, {
-  RenderSidebarContents,
-} from '../../components/RenderSidebarContentsAndHeader';
 import RenderUsersInfo from '../../components/RenderUserInfo';
 import { usersData } from './usersData';
-import { sidebarContentsData } from './sidebarContentsData';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
   statusColumnClassname,
   tableBodyContents,
   tableHeaders,
 } from './tableData';
+import { FilterBoxInputsType } from '../../types';
+import nextIcon from '/next-btn.svg';
+import previousIcon from '/prev-btn.svg';
+import RenderFilterResultsBox from '../../components/FilterResultsBox';
+import RenderTableSideMenuBox from '../../components/RenderTableSideMenu';
+import Topbar from '../Topbar/TopBar';
+import Sidebar from '../Sidebar/Sidebar';
 
 const Dashboard = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
+  const [showSideMenuBox, setShowSideMenuBox] = useState(false);
+  const [showFilterBox, setShowFilterBox] = useState(false);
+  const [organization, setOrganization] = useState('');
+  const [status, setStatus] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [date, setDate] = useState('');
+
+  const filterInputsBoxData: Array<FilterBoxInputsType> = [
+    {
+      id: 1,
+      title: 'Username',
+      name: 'username',
+      type: 'text',
+      value: username,
+      onChange: (e) => setUsername(e.target.value),
+    },
+    {
+      id: 2,
+      title: 'Email',
+      name: 'email',
+      type: 'text',
+      value: email,
+      onChange: (e) => setEmail(e.target.value),
+    },
+    {
+      id: 3,
+      title: 'Date',
+      name: 'date',
+      type: 'date',
+      value: date,
+      onChange: (e) => setDate(e.target.value),
+    },
+    {
+      id: 4,
+      title: 'Phone Number',
+      name: 'phoneNumber',
+      type: 'text',
+      value: phoneNumber,
+      onChange: (e) => setPhoneNumber(e.target.value),
+    },
+  ];
+
+  const handleFilter = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log({
+      organization: organization,
+      username: username,
+      email: email,
+      date: date,
+      phoneNumber: phoneNumber,
+      staus: status,
+    });
+  };
+
+  const handleReset = () => {
+    setOrganization('');
+    setUsername('');
+    setEmail('');
+    setDate('');
+    setPhoneNumber('');
+    setStatus('');
+  };
 
   return (
     <div className='dashboard'>
-      <div className='top'>
-        <div className='hamburger-container'>
-          <MenuIcon
-            className='hamburger'
-            onClick={() => setOpenSideBar(!openSideBar)}
-          />
-        </div>
-        <div className='top-left'>
-          <div className='logo'>
-            <img src={LogoImg} alt='LogoImg' className='logo-img' />
-            <img src={Logo} alt='Logo' className='logo-name' />
-          </div>
-        </div>
-        <div className='top-center'>
-          <div className='search-box-container'>
-            <input type='text' placeholder='Search for anything' />
-            <div className='search-icon-container'>
-              <SearchIcon />
-            </div>
-          </div>
-        </div>
-        <div className='top-right'>
-          <div className='container'>
-            <p className='docs'>Docs</p>
-            <NotificationsNoneIcon className='icons' />
-            <div className='business-container'>
-              <div className='business-image-container'>
-                <img src={businessAvatar} alt='' />
-              </div>
-              <p>Adedeji</p>
-              <ArrowDropDownIcon className='icons' />
-            </div>
-          </div>
-        </div>
-      </div>
+      <Topbar openSideBar={openSideBar} setOpenSideBar={setOpenSideBar} />
       <div className='body'>
-        <div className={'side-bar ' + (openSideBar && 'active')}>
-          <div className='side-bar-top'>
-            <div className='switch-organisation-option'>
-              <div className='left'>
-                <img
-                  src={briefcaseIcon}
-                  alt='briefcaseIcon'
-                  className='briefcase-icon'
-                />
-              </div>
-              <div className='center'>
-                <p>Switch Organization</p>
-              </div>
-              <div className='right'>
-                <img
-                  src={arrowHeadDownIcon}
-                  alt='arrow head down icon'
-                  className='arrow-head-down-icon'
-                />
-              </div>
-            </div>
-            <RenderSidebarContents
-              name='Dashboard'
-              imgSrc={homeIcon}
-              imgAlt='home icon'
-              imgClassName='home-icon'
-            />
-          </div>
-          {sidebarContentsData.map((content) => (
-            <RenderSidebarContentsAndHeader
-              headerName={content.headerName}
-              contentsData={content.contentsData}
-            />
-          ))}
-          <div className='empty-div'></div>
-        </div>
+        <Sidebar openSideBar={openSideBar} />
         <div className='main-body'>
           <div className='container'>
             <h3>Users</h3>
@@ -114,6 +103,17 @@ const Dashboard = () => {
               ))}
             </div>
             <div className='table-container'>
+              {/* filter box will be here */}
+              <RenderFilterResultsBox
+                onOrganizationChange={(e) => setOrganization(e.target.value)}
+                onStatusChange={(e) => setStatus(e.target.value)}
+                organizationValue={organization}
+                statusValue={status}
+                filterBoxData={filterInputsBoxData}
+                showFilterBox={showFilterBox}
+                onFormSubmit={handleFilter}
+                onResetClick={handleReset}
+              />
               <table className='table'>
                 <thead>
                   <tr>
@@ -124,6 +124,8 @@ const Dashboard = () => {
                           <img
                             src={filterResultsButton}
                             alt='filter-results-button'
+                            className='filter-results-btn'
+                            onClick={() => setShowFilterBox(!showFilterBox)}
                           />
                         </div>
                       </td>
@@ -143,10 +145,20 @@ const Dashboard = () => {
                           </div>
                         </td>
                       ))}
-                      <td>
-                        <div className='column-body' key={7}>
+                      <td className='menu-column'>
+                        <div
+                          className='column-body'
+                          onClick={() => setShowSideMenuBox(!showSideMenuBox)}
+                          key={7}
+                        >
                           <MoreVertIcon className='more-icon' />
                         </div>
+                        {/* side menu box her */}
+
+                        <RenderTableSideMenuBox
+                          showSideMenuBox={showSideMenuBox}
+                          onClick={() => setShowSideMenuBox(false)}
+                        />
                       </td>
                       <span className='divider'></span>
                     </tr>
@@ -156,7 +168,30 @@ const Dashboard = () => {
             </div>
 
             <div className='footer-container'>
-              <div className='footer-nav'></div>
+              <div className='footer-nav'>
+                <div className='left'>
+                  <span>Showing</span>
+                  <div className='page-number'>
+                    100
+                    <span>
+                      <ArrowDropDownIcon className='icons' />
+                    </span>
+                  </div>
+                  <span className='total-data'>out of 100</span>
+                </div>
+                <div className='right'>
+                  <img src={previousIcon} alt='' />
+                  <div className='div'>
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>...</span>
+                    <span>14</span>
+                    <span>15</span>
+                  </div>
+                  <img src={nextIcon} alt='' />
+                </div>
+              </div>
             </div>
           </div>
         </div>
