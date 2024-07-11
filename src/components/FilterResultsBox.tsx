@@ -1,7 +1,7 @@
 import {
   organizationSelectOptionsData,
   statusSelectOptionsData,
-} from '../pages/Dashboard/filrtBoxAndSideMenuData';
+} from '../pages/Dashboard/filterBoxAndSideMenuData';
 import { FilterResultsBoxType } from '../types';
 import RenderFilterBoxInputs from './RenderFilterBoxInputs';
 
