@@ -7,9 +7,21 @@ import starIconFilled from '/star-icon-filled.svg';
 import starIconClear from '/star-icon-clear.svg';
 import './UserDetailsPage.scss';
 import { formatMoney } from '../../functions/formatMoney';
+import savingsIcon from '/savings-svgrepo-com.svg';
+import appsIcon4 from '/apps-svgrepo-com(3).svg';
+import loanIcon from '/bank-banking-business-4-svgrepo-com.svg';
+import bankDetailsIcon from '/cheque-svgrepo-com.svg';
+import generalDetailsIcon from '/contact-details-svgrepo-com.svg';
+import documentsIcon from '/documents-record-document-report-svgrepo-com.svg';
 
 const UserDetailsPage = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
+  const [generalDetails, setGeneralDetails] = useState(false);
+  const [documents, setDocuments] = useState(false);
+  const [bankDetails, setBankDetails] = useState(false);
+  const [loans, setLoans] = useState(false);
+  const [savings, setSavings] = useState(false);
+  const [appsAndSystems, setAppsAndSystems] = useState(false);
 
   const user = {
     username: 'Grace Effiom',
@@ -18,6 +30,88 @@ const UserDetailsPage = () => {
     balance: 200000,
     accountNumber: 9912345678,
     bankName: 'Providus Bank',
+  };
+
+  const controlPageToDisplay = (pageName: string) => {
+    if (pageName === 'General Details') {
+      setGeneralDetails(true);
+      setDocuments(false);
+      setBankDetails(false);
+      setLoans(false);
+      setSavings(false);
+      setAppsAndSystems(false);
+    } else if (pageName === 'Documents') {
+      setGeneralDetails(false);
+      setDocuments(true);
+      setBankDetails(false);
+      setLoans(false);
+      setSavings(false);
+      setAppsAndSystems(false);
+    } else if (pageName === 'Bank Details') {
+      setGeneralDetails(false);
+      setDocuments(false);
+      setBankDetails(true);
+      setLoans(false);
+      setSavings(false);
+      setAppsAndSystems(false);
+    } else if (pageName === 'Loans') {
+      setGeneralDetails(false);
+      setDocuments(false);
+      setBankDetails(false);
+      setLoans(true);
+      setSavings(false);
+      setAppsAndSystems(false);
+    } else if (pageName === 'Savings') {
+      setGeneralDetails(false);
+      setDocuments(false);
+      setBankDetails(false);
+      setLoans(false);
+      setSavings(true);
+      setAppsAndSystems(false);
+    } else {
+      setGeneralDetails(false);
+      setDocuments(false);
+      setBankDetails(false);
+      setLoans(false);
+      setSavings(false);
+      setAppsAndSystems(true);
+    }
+  };
+
+  const handleTier = (tier: number) => {
+    if (tier === 1) {
+      return (
+        <div className='stars-container'>
+          <img src={starIconFilled} alt='' />
+          <img src={starIconClear} alt='' />
+          <img src={starIconClear} alt='' />
+        </div>
+      );
+    } else if (tier === 2) {
+      return (
+        <div className='stars-container'>
+          <img src={starIconFilled} alt='' />
+          <img src={starIconFilled} alt='' />
+          <img src={starIconClear} alt='' />
+        </div>
+      );
+    } else if (tier === 3) {
+      return (
+        <div className='stars-container'>
+          <img src={starIconFilled} alt='' />
+          <img src={starIconFilled} alt='' />
+          <img src={starIconFilled} alt='' />
+        </div>
+      );
+    } else {
+      return (
+        <div className='stars-container'>
+          <img src={starIconClear} alt='' />
+          <img src={starIconClear} alt='' />
+          <img src={starIconClear} alt='' />
+        </div>
+      );
+    }
   };
 
   return (
@@ -55,9 +149,7 @@ const UserDetailsPage = () => {
                   <div className='tier-container'>
                     <p>User's Tier</p>
                     <div className='stars-container'>
-                      <img src={starIconFilled} alt='' />
-                      <img src={starIconClear} alt='' />
-                      <img src={starIconClear} alt='' />
+                      {handleTier(user.tier)}
                     </div>
                   </div>
                 </div>
@@ -73,12 +165,80 @@ const UserDetailsPage = () => {
               </div>
               <div className='bottom-half'>
                 <div className='nav-btns-container'>
-                  <div className='nav-btn'>General Details</div>
-                  <div className='nav-btn'>Documents</div>
-                  <div className='nav-btn'>Bank Details</div>
-                  <div className='nav-btn'>Loans</div>
-                  <div className='nav-btn'>Savings</div>
-                  <div className='nav-btn'>Apps and Systems</div>
+                  <div
+                    onClick={() => controlPageToDisplay('General Details')}
+                    className={'nav-btn ' + (generalDetails && 'active')}
+                  >
+                    General Details
+                  </div>
+                  <div
+                    onClick={() => controlPageToDisplay('Documents')}
+                    className={'nav-btn ' + (documents && 'active')}
+                  >
+                    Documents
+                  </div>
+                  <div
+                    onClick={() => controlPageToDisplay('Bank Details')}
+                    className={'nav-btn ' + (bankDetails && 'active')}
+                  >
+                    Bank Details
+                  </div>
+                  <div
+                    onClick={() => controlPageToDisplay('Loans')}
+                    className={'nav-btn ' + (loans && 'active')}
+                  >
+                    Loans
+                  </div>
+                  <div
+                    onClick={() => controlPageToDisplay('Savings')}
+                    className={'nav-btn ' + (savings && 'active')}
+                  >
+                    Savings
+                  </div>
+                  <div
+                    onClick={() => controlPageToDisplay('Apps and Systems')}
+                    className={'nav-btn ' + (appsAndSystems && 'active')}
+                  >
+                    Apps and Systems
+                  </div>
+                  <div className='nav-icons-container'>
+                    <img
+                      src={generalDetailsIcon}
+                      alt=''
+                      className={'nav-btn ' + (generalDetails && 'active')}
+                      onClick={() => controlPageToDisplay('General Details')}
+                    />
+                    <img
+                      src={documentsIcon}
+                      alt=''
+                      className={'' + (documents && 'active')}
+                      onClick={() => controlPageToDisplay('Documents')}
+                    />
+                    <img
+                      src={bankDetailsIcon}
+                      alt=''
+                      className={'' + (bankDetails && 'active')}
+                      onClick={() => controlPageToDisplay('Bank Details')}
+                    />
+                    <img
+                      src={loanIcon}
+                      alt=''
+                      className={'' + (loans && 'active')}
+                      onClick={() => controlPageToDisplay('Loans')}
+                    />
+                    <img
+                      src={savingsIcon}
+                      alt=''
+                      className={'' + (savings && 'active')}
+                      onClick={() => controlPageToDisplay('Savings')}
+                    />
+                    <img
+                      src={appsIcon4}
+                      alt=''
+                      className={'' + (appsAndSystems && 'active')}
+                      onClick={() => controlPageToDisplay('Apps and Systems')}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
