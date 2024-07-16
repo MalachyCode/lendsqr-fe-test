@@ -52,3 +52,34 @@ export interface FilterResultsBoxType {
   onFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   onResetClick: () => void;
 }
+
+export interface UserType {
+  id: string;
+  tier: number;
+  balance: number;
+  accountNumber: number;
+  bankName: string;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  BVN: string;
+  maritalStatus: string;
+  gender: string;
+  children: string;
+  typeOfResidence: string;
+  levelOfEducation: string;
+  employmentStatus: string;
+  sectorOfEmployment: string;
+  durationOfEmployment: string;
+  officeEmail: string;
+  monthlyIncomeMin: number;
+  monthlyIncomeMax: number;
+  loanRepayment: number;
+  twitterHandle: string;
+  facebookHandle: string;
+  intagramHandle: string;
+  guarantorFullName: string;
+  guarantorEmail: string;
+  guarantorPhoneNumber: string;
+  guarantorRelationship: string;
+}
