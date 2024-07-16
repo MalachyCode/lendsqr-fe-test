@@ -13,8 +13,19 @@ import loanIcon from '/bank-banking-business-4-svgrepo-com.svg';
 import bankDetailsIcon from '/cheque-svgrepo-com.svg';
 import generalDetailsIcon from '/contact-details-svgrepo-com.svg';
 import documentsIcon from '/documents-record-document-report-svgrepo-com.svg';
+import {
+  RenderNavBtns,
+  RenderNavIcons,
+} from '../../components/RenderNavBtnsAndIcons';
+import PersonalInformation from '../../components/PersonalInformation';
+import EducationAndEmployment from '../../components/EducationAndEmployment';
+import Socials from '../../components/Socials';
+import Guarantor from '../../components/Guarantor';
+import { useNavigate } from 'react-router-dom';
+import { user } from './user';
 
 const UserDetailsPage = () => {
+  const navigate = useNavigate();
   const [openSideBar, setOpenSideBar] = useState(false);
   const [generalDetails, setGeneralDetails] = useState(false);
   const [documents, setDocuments] = useState(false);
@@ -23,60 +34,65 @@ const UserDetailsPage = () => {
   const [savings, setSavings] = useState(false);
   const [appsAndSystems, setAppsAndSystems] = useState(false);
 
-  const user = {
-    username: 'Grace Effiom',
-    id: 'LSQFf587g90',
-    tier: 1,
-    balance: 200000,
-    accountNumber: 9912345678,
-    bankName: 'Providus Bank',
-  };
+  const navIconsData = [
+    {
+      iconSrc: generalDetailsIcon,
+      iconName: generalDetails,
+      functionArg: 'General Details',
+    },
+    {
+      iconSrc: documentsIcon,
+      iconName: documents,
+      functionArg: 'Documents',
+    },
+    {
+      iconSrc: bankDetailsIcon,
+      iconName: bankDetails,
+      functionArg: 'Bank Details',
+    },
+    {
+      iconSrc: loanIcon,
+      iconName: loans,
+      functionArg: 'Loans',
+    },
+    {
+      iconSrc: savingsIcon,
+      iconName: savings,
+      functionArg: 'Savings',
+    },
+    {
+      iconSrc: appsIcon4,
+      iconName: appsAndSystems,
+      functionArg: 'Apps and Systems',
+    },
+  ];
 
-  const controlPageToDisplay = (pageName: string) => {
-    if (pageName === 'General Details') {
-      setGeneralDetails(true);
-      setDocuments(false);
-      setBankDetails(false);
-      setLoans(false);
-      setSavings(false);
-      setAppsAndSystems(false);
-    } else if (pageName === 'Documents') {
-      setGeneralDetails(false);
-      setDocuments(true);
-      setBankDetails(false);
-      setLoans(false);
-      setSavings(false);
-      setAppsAndSystems(false);
-    } else if (pageName === 'Bank Details') {
-      setGeneralDetails(false);
-      setDocuments(false);
-      setBankDetails(true);
-      setLoans(false);
-      setSavings(false);
-      setAppsAndSystems(false);
-    } else if (pageName === 'Loans') {
-      setGeneralDetails(false);
-      setDocuments(false);
-      setBankDetails(false);
-      setLoans(true);
-      setSavings(false);
-      setAppsAndSystems(false);
-    } else if (pageName === 'Savings') {
-      setGeneralDetails(false);
-      setDocuments(false);
-      setBankDetails(false);
-      setLoans(false);
-      setSavings(true);
-      setAppsAndSystems(false);
-    } else {
-      setGeneralDetails(false);
-      setDocuments(false);
-      setBankDetails(false);
-      setLoans(false);
-      setSavings(false);
-      setAppsAndSystems(true);
-    }
-  };
+  const navBtnsData = [
+    {
+      btnName: generalDetails,
+      btnTitle: 'General Details',
+    },
+    {
+      btnName: documents,
+      btnTitle: 'Documents',
+    },
+    {
+      btnName: bankDetails,
+      btnTitle: 'Bank Details',
+    },
+    {
+      btnName: loans,
+      btnTitle: 'Loans',
+    },
+    {
+      btnName: savings,
+      btnTitle: 'Savings',
+    },
+    {
+      btnName: appsAndSystems,
+      btnTitle: 'Apps and Systems',
+    },
+  ];
 
   const handleTier = (tier: number) => {
     if (tier === 1) {
@@ -123,7 +139,10 @@ const UserDetailsPage = () => {
           <div className='container'>
             <div className='page-head'>
               <div className='left'>
-                <div className='back-button'>
+                <div
+                  className='back-button'
+                  onClick={() => navigate('/dashboard')}
+                >
                   <img src={backIcon} alt='' />
                   <p>Back to Users</p>
                 </div>
@@ -141,7 +160,7 @@ const UserDetailsPage = () => {
                 <img src={userAvatar} alt='' className='user-icon' />
                 <div className='left'>
                   <div className='name-container'>
-                    <p className='name'>{user.username}</p>
+                    <p className='name'>{user.fullName}</p>
                     <p className='id'>{user.id}</p>
                   </div>
                 </div>
@@ -165,82 +184,44 @@ const UserDetailsPage = () => {
               </div>
               <div className='bottom-half'>
                 <div className='nav-btns-container'>
-                  <div
-                    onClick={() => controlPageToDisplay('General Details')}
-                    className={'nav-btn ' + (generalDetails && 'active')}
-                  >
-                    General Details
-                  </div>
-                  <div
-                    onClick={() => controlPageToDisplay('Documents')}
-                    className={'nav-btn ' + (documents && 'active')}
-                  >
-                    Documents
-                  </div>
-                  <div
-                    onClick={() => controlPageToDisplay('Bank Details')}
-                    className={'nav-btn ' + (bankDetails && 'active')}
-                  >
-                    Bank Details
-                  </div>
-                  <div
-                    onClick={() => controlPageToDisplay('Loans')}
-                    className={'nav-btn ' + (loans && 'active')}
-                  >
-                    Loans
-                  </div>
-                  <div
-                    onClick={() => controlPageToDisplay('Savings')}
-                    className={'nav-btn ' + (savings && 'active')}
-                  >
-                    Savings
-                  </div>
-                  <div
-                    onClick={() => controlPageToDisplay('Apps and Systems')}
-                    className={'nav-btn ' + (appsAndSystems && 'active')}
-                  >
-                    Apps and Systems
-                  </div>
+                  {navBtnsData.map((data) => (
+                    <RenderNavBtns
+                      btnName={data.btnName}
+                      btnTitle={data.btnTitle}
+                      setGeneralDetails={setGeneralDetails}
+                      setAppsAndSystems={setAppsAndSystems}
+                      setBankDetails={setBankDetails}
+                      setDocuments={setDocuments}
+                      setLoans={setLoans}
+                      setSavings={setSavings}
+                    />
+                  ))}
                   <div className='nav-icons-container'>
-                    <img
-                      src={generalDetailsIcon}
-                      alt=''
-                      className={'nav-btn ' + (generalDetails && 'active')}
-                      onClick={() => controlPageToDisplay('General Details')}
-                    />
-                    <img
-                      src={documentsIcon}
-                      alt=''
-                      className={'' + (documents && 'active')}
-                      onClick={() => controlPageToDisplay('Documents')}
-                    />
-                    <img
-                      src={bankDetailsIcon}
-                      alt=''
-                      className={'' + (bankDetails && 'active')}
-                      onClick={() => controlPageToDisplay('Bank Details')}
-                    />
-                    <img
-                      src={loanIcon}
-                      alt=''
-                      className={'' + (loans && 'active')}
-                      onClick={() => controlPageToDisplay('Loans')}
-                    />
-                    <img
-                      src={savingsIcon}
-                      alt=''
-                      className={'' + (savings && 'active')}
-                      onClick={() => controlPageToDisplay('Savings')}
-                    />
-                    <img
-                      src={appsIcon4}
-                      alt=''
-                      className={'' + (appsAndSystems && 'active')}
-                      onClick={() => controlPageToDisplay('Apps and Systems')}
-                    />
+                    {navIconsData.map((data) => (
+                      <RenderNavIcons
+                        functionArg={data.functionArg}
+                        iconName={data.iconName}
+                        iconSrc={data.iconSrc}
+                        setGeneralDetails={setGeneralDetails}
+                        setAppsAndSystems={setAppsAndSystems}
+                        setBankDetails={setBankDetails}
+                        setDocuments={setDocuments}
+                        setLoans={setLoans}
+                        setSavings={setSavings}
+                      />
+                    ))}
                   </div>
                 </div>
               </div>
+            </div>
+            <div className='detailed-details-box'>
+              <PersonalInformation user={user} />
+              <span className='seperator'></span>
+              <EducationAndEmployment user={user} />
+              <span className='seperator'></span>
+              <Socials user={user} />
+              <span className='seperator'></span>
+              <Guarantor user={user} />
             </div>
           </div>
         </div>
