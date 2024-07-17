@@ -14,9 +14,10 @@ import { FilterBoxInputsType } from '../../types';
 import nextIcon from '/next-btn.svg';
 import previousIcon from '/prev-btn.svg';
 import RenderFilterResultsBox from '../../components/FilterResultsBox';
-import RenderTableSideMenuBox from '../../components/RenderTableSideMenu';
+// import RenderTableSideMenuBox from '../../components/RenderTableSideMenu';
 import Topbar from '../Topbar/TopBar';
 import Sidebar from '../Sidebar/Sidebar';
+import { sideMenuOptions } from './filterBoxAndSideMenuData';
 
 const Dashboard = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -28,6 +29,7 @@ const Dashboard = () => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [date, setDate] = useState('');
+  const [selectedRowId, setSelectedRowId] = useState<number>();
 
   const filterInputsBoxData: Array<FilterBoxInputsType> = [
     {
@@ -137,7 +139,7 @@ const Dashboard = () => {
                   {tableBodyContents.map((contentBody) => (
                     <tr key={contentBody.id}>
                       {contentBody.contents.map((content) => (
-                        <td key={content.id}>
+                        <td key={content.id} className='row'>
                           <div className='column-body' key={content.id}>
                             <span className={statusColumnClassname(content)}>
                               {content.name}
@@ -148,19 +150,39 @@ const Dashboard = () => {
                       <td className='menu-column'>
                         <div
                           className='column-body'
-                          onClick={() => setShowSideMenuBox(!showSideMenuBox)}
+                          onClick={() => {
+                            setSelectedRowId(contentBody.id);
+                            setShowSideMenuBox(!showSideMenuBox);
+                          }}
                           key={7}
                         >
                           <MoreVertIcon className='more-icon' />
                         </div>
                         {/* side menu box her */}
 
-                        <RenderTableSideMenuBox
+                        {/* <RenderTableSideMenuBox
                           showSideMenuBox={showSideMenuBox}
+                          onClick={() => {setShowSideMenuBox(false)}}
+                        /> */}
+                        <div
+                          className={
+                            'table-side-menu-box ' +
+                            (showSideMenuBox && selectedRowId === contentBody.id
+                              ? 'active'
+                              : '')
+                          }
                           onClick={() => setShowSideMenuBox(false)}
-                        />
+                        >
+                          {sideMenuOptions.map((option) => (
+                            <div className='option' key={option.id}>
+                              <div className='option-icon'>
+                                <img src={option.icon} alt='' />
+                              </div>
+                              <div className='option-name'>{option.name}</div>
+                            </div>
+                          ))}
+                        </div>
                       </td>
-                      <span className='divider'></span>
                     </tr>
                   ))}
                 </tbody>
