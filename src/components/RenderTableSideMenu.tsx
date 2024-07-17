@@ -3,9 +3,16 @@ import { sideMenuOptions } from '../pages/Dashboard/filterBoxAndSideMenuData';
 const RenderTableSideMenuBox = (props: {
   showSideMenuBox: boolean;
   onClick: () => void;
+  selectedRowId: number;
+  contentId: number;
 }) => (
   <div
-    className={'table-side-menu-box ' + (props.showSideMenuBox && 'active')}
+    className={
+      'table-side-menu-box ' +
+      (props.showSideMenuBox && props.selectedRowId === props.contentId
+        ? 'active'
+        : '')
+    }
     onClick={props.onClick}
   >
     {sideMenuOptions.map((option) => (
