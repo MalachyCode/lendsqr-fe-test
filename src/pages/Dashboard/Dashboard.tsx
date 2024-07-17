@@ -14,10 +14,9 @@ import { FilterBoxInputsType } from '../../types';
 import nextIcon from '/next-btn.svg';
 import previousIcon from '/prev-btn.svg';
 import RenderFilterResultsBox from '../../components/FilterResultsBox';
-// import RenderTableSideMenuBox from '../../components/RenderTableSideMenu';
+import RenderTableSideMenuBox from '../../components/RenderTableSideMenu';
 import Topbar from '../Topbar/TopBar';
 import Sidebar from '../Sidebar/Sidebar';
-import { sideMenuOptions } from './filterBoxAndSideMenuData';
 
 const Dashboard = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -160,28 +159,14 @@ const Dashboard = () => {
                         </div>
                         {/* side menu box her */}
 
-                        {/* <RenderTableSideMenuBox
+                        <RenderTableSideMenuBox
                           showSideMenuBox={showSideMenuBox}
-                          onClick={() => {setShowSideMenuBox(false)}}
-                        /> */}
-                        <div
-                          className={
-                            'table-side-menu-box ' +
-                            (showSideMenuBox && selectedRowId === contentBody.id
-                              ? 'active'
-                              : '')
-                          }
-                          onClick={() => setShowSideMenuBox(false)}
-                        >
-                          {sideMenuOptions.map((option) => (
-                            <div className='option' key={option.id}>
-                              <div className='option-icon'>
-                                <img src={option.icon} alt='' />
-                              </div>
-                              <div className='option-name'>{option.name}</div>
-                            </div>
-                          ))}
-                        </div>
+                          onClick={() => {
+                            setShowSideMenuBox(false);
+                          }}
+                          selectedRowId={selectedRowId ? selectedRowId : 0}
+                          contentId={contentBody.id}
+                        />
                       </td>
                     </tr>
                   ))}
