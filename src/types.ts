@@ -82,4 +82,8 @@ export interface UserType {
   guarantorEmail: string;
   guarantorPhoneNumber: string;
   guarantorRelationship: string;
+  username: string;
+  status: string;
+  organization: string;
+  dateJoined: string;
 }
