@@ -6,10 +6,18 @@ import RenderSidebarContentsAndHeader, {
   RenderSidebarContents,
 } from '../../components/RenderSidebarContentsAndHeader';
 import { sidebarContentsData } from './sidebarContentsData';
+import SearchIcon from '@mui/icons-material/Search';
+import '../Dashboard/Dashboard.scss';
 
 const Sidebar = (props: { openSideBar: boolean }) => (
   <div className={'side-bar ' + (props.openSideBar && 'active')}>
     <div className='side-bar-top'>
+      <div className='search-box-container'>
+        <input type='text' placeholder='Search for anything' />
+        <div className='search-icon-container'>
+          <SearchIcon />
+        </div>
+      </div>
       <div className='switch-organisation-option'>
         <div className='left'>
           <img
