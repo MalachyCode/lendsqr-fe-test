@@ -455,8 +455,83 @@
           height: 600px;
           margin: auto;
           margin-top: 30px;
+          margin-bottom: 30px;
           position: relative;
           overflow-x: auto;
+
+          .footer-container {
+            width: 100%;
+            height: 50px;
+            margin: auto;
+            position: absolute;
+
+            .footer-nav {
+              width: 100%;
+              height: 40px;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              font-size: 13px;
+
+              .left {
+                display: flex;
+                flex-direction: row;
+                width: 50%;
+                align-items: center;
+                height: 100%;
+
+                @media (min-width: 768px) {
+                  justify-content: start;
+                }
+
+                .page-number {
+                  padding: 0 5px;
+                  width: 10px;
+                  height: 25px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  margin: 0 5px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  cursor: pointer;
+                }
+              }
+
+              .right {
+                width: 50%;
+                height: 100%;
+                overflow: hidden;
+                display: flex;
+
+                .pagination {
+                  width: 100%;
+                  height: 25px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: end;
+                  padding-top: 3px;
+                  gap: 20px;
+
+                  .page-link-class {
+                    cursor: pointer;
+                    color: #213f7d;
+                  }
+
+                  .active {
+                    // color: blue;
+                    cursor: pointer;
+                  }
+
+                  img {
+                    cursor: pointer;
+                    margin-top: 5px;
+                  }
+                }
+              }
+            }
+          }
 
           .filter-results-box {
             width: 200px;
@@ -708,66 +783,6 @@
 
           @media (min-width: 768px) {
             width: 93%;
-          }
-        }
-
-        .footer-container {
-          width: 93%;
-          height: 100px;
-          margin: auto;
-
-          .footer-nav {
-            width: 100%;
-            height: 40px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            font-size: 13px;
-
-            .left {
-              display: flex;
-              flex-direction: row;
-              width: 50%;
-              align-items: center;
-
-              @media (min-width: 768px) {
-                justify-content: start;
-              }
-
-              .page-number {
-                padding: 0 5px;
-                width: 50px;
-                height: 25px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin: 0 5px;
-                cursor: pointer;
-              }
-            }
-
-            .right {
-              width: 50%;
-              display: flex;
-              align-items: center;
-              justify-content: end;
-
-              @media (max-width: 576px) {
-                justify-content: space-around;
-              }
-
-              div {
-                margin: 0 10px;
-                span {
-                  margin: 0 2.5px;
-                  cursor: pointer;
-                }
-              }
-
-              img {
-                cursor: pointer;
-              }
-            }
           }
         }
 
