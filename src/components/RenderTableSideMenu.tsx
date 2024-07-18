@@ -3,8 +3,8 @@ import { sideMenuOptions } from '../pages/Dashboard/filterBoxAndSideMenuData';
 const RenderTableSideMenuBox = (props: {
   showSideMenuBox: boolean;
   onClick: () => void;
-  selectedRowId: number;
-  contentId: number;
+  selectedRowId: string;
+  contentId: string;
 }) => (
   <div
     className={
