@@ -1,25 +1,19 @@
 import './Dashboard.scss';
 import filterResultsButton from '/filter-results-button.svg';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { useEffect, useState } from 'react';
+// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useState } from 'react';
 import RenderUsersInfo from '../../components/RenderUserInfo';
 import { usersData } from './usersData';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { tableBodyContents, tableHeaders } from './tableData';
-import { FilterBoxInputsType, UserType } from '../../types';
-import nextIcon from '/next-btn.svg';
-import previousIcon from '/prev-btn.svg';
+// import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { tableHeaders } from './tableData';
+import { FilterBoxInputsType } from '../../types';
 import RenderFilterResultsBox from '../../components/FilterResultsBox';
-import RenderTableSideMenuBox from '../../components/RenderTableSideMenu';
 import Topbar from '../Topbar/TopBar';
 import Sidebar from '../Sidebar/Sidebar';
-import { useNavigate } from 'react-router-dom';
-import TableCell from '../../components/TableCell';
+import PaginatedItems from '../../components/PaginatedItems';
 
 const Dashboard = () => {
-  const navigate = useNavigate();
   const [openSideBar, setOpenSideBar] = useState(false);
-  const [showSideMenuBox, setShowSideMenuBox] = useState(false);
   const [showFilterBox, setShowFilterBox] = useState(false);
   const [organization, setOrganization] = useState('');
   const [status, setStatus] = useState('');
@@ -27,15 +21,6 @@ const Dashboard = () => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [date, setDate] = useState('');
-  const [selectedRowId, setSelectedRowId] = useState<string>();
-  const [user, setUser] = useState<UserType>();
-
-  useEffect(() => {
-    const retrievedUserFromData = tableBodyContents.find(
-      (user) => user.id === selectedRowId
-    );
-    setUser(retrievedUserFromData);
-  }, [selectedRowId]);
 
   const filterInputsBoxData: Array<FilterBoxInputsType> = [
     {
@@ -142,92 +127,9 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tableBodyContents.map((contentBody) => (
-                    <tr key={contentBody.id}>
-                      <TableCell
-                        name={contentBody.organization}
-                        key={contentBody.id}
-                      />
-                      <TableCell
-                        name={contentBody.username}
-                        key={contentBody.id}
-                      />
-                      <TableCell
-                        name={contentBody.email}
-                        key={contentBody.id}
-                      />
-                      <TableCell
-                        name={contentBody.phoneNumber}
-                        key={contentBody.id}
-                      />
-                      <TableCell
-                        name={contentBody.dateJoined}
-                        key={contentBody.id}
-                      />
-                      <TableCell
-                        name={contentBody.status}
-                        status={contentBody.status}
-                        isStatusCell={true}
-                        key={contentBody.id}
-                      />
-                      <td className='menu-column'>
-                        <div
-                          className='column-body'
-                          onClick={() => {
-                            setSelectedRowId(contentBody.id);
-                            setShowSideMenuBox(!showSideMenuBox);
-                          }}
-                          key={7}
-                        >
-                          <MoreVertIcon className='more-icon' />
-                        </div>
-                        {/* side menu box her */}
-
-                        <RenderTableSideMenuBox
-                          showSideMenuBox={showSideMenuBox}
-                          onClick={() => {
-                            navigate('/user-info');
-                            window.localStorage.setItem(
-                              'selectedUser',
-                              JSON.stringify(user)
-                            );
-                            setShowSideMenuBox(false);
-                          }}
-                          selectedRowId={selectedRowId ? selectedRowId : ''}
-                          contentId={contentBody.id}
-                        />
-                      </td>
-                    </tr>
-                  ))}
+                  <PaginatedItems itemsPerPage={10} />
                 </tbody>
               </table>
-            </div>
-
-            <div className='footer-container'>
-              <div className='footer-nav'>
-                <div className='left'>
-                  <span>Showing</span>
-                  <div className='page-number'>
-                    100
-                    <span>
-                      <ArrowDropDownIcon className='icons' />
-                    </span>
-                  </div>
-                  <span className='total-data'>out of 100</span>
-                </div>
-                <div className='right'>
-                  <img src={previousIcon} alt='' />
-                  <div className='div'>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>...</span>
-                    <span>14</span>
-                    <span>15</span>
-                  </div>
-                  <img src={nextIcon} alt='' />
-                </div>
-              </div>
             </div>
           </div>
         </div>
