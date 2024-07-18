@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import Topbar from '../Topbar/TopBar';
 import backIcon from '/back-icon.svg';
@@ -22,7 +22,8 @@ import EducationAndEmployment from '../../components/EducationAndEmployment';
 import Socials from '../../components/Socials';
 import Guarantor from '../../components/Guarantor';
 import { useNavigate } from 'react-router-dom';
-import { user } from './user';
+import { UserType } from '../../types';
+// import { user } from './user';
 
 const UserDetailsPage = () => {
   const navigate = useNavigate();
@@ -33,6 +34,16 @@ const UserDetailsPage = () => {
   const [loans, setLoans] = useState(false);
   const [savings, setSavings] = useState(false);
   const [appsAndSystems, setAppsAndSystems] = useState(false);
+  const [user, setUser] = useState<UserType>();
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('selectedUser');
+    if (loggedUserJSON) {
+      const retrievedUser = JSON.parse(loggedUserJSON);
+
+      setUser(retrievedUser);
+    }
+  }, []);
 
   const navIconsData = [
     {
@@ -160,25 +171,25 @@ const UserDetailsPage = () => {
                 <img src={userAvatar} alt='' className='user-icon' />
                 <div className='left'>
                   <div className='name-container'>
-                    <p className='name'>{user.fullName}</p>
-                    <p className='id'>{user.id}</p>
+                    <p className='name'>{user?.fullName}</p>
+                    <p className='id'>{user?.id}</p>
                   </div>
                 </div>
                 <div className='middle'>
                   <div className='tier-container'>
                     <p>User's Tier</p>
                     <div className='stars-container'>
-                      {handleTier(user.tier)}
+                      {user && handleTier(user.tier)}
                     </div>
                   </div>
                 </div>
                 <div className='right'>
                   <div className='balance-container'>
-                    <p>&#8358;{formatMoney(+user.balance, 0)}.00</p>
+                    <p>&#8358;{user && formatMoney(+user.balance, 0)}.00</p>
                   </div>
                   <div className='account-details-container'>
-                    <p className='account-num'>{user.accountNumber}/</p>
-                    <p className='bank-name'> {user.bankName}</p>
+                    <p className='account-num'>{user?.accountNumber}/</p>
+                    <p className='bank-name'> {user?.bankName}</p>
                   </div>
                 </div>
               </div>
@@ -215,13 +226,13 @@ const UserDetailsPage = () => {
               </div>
             </div>
             <div className='detailed-details-box'>
-              <PersonalInformation user={user} />
+              {user && <PersonalInformation user={user} />}
               <span className='seperator'></span>
-              <EducationAndEmployment user={user} />
+              {user && <EducationAndEmployment user={user} />}
               <span className='seperator'></span>
-              <Socials user={user} />
+              {user && <Socials user={user} />}
               <span className='seperator'></span>
-              <Guarantor user={user} />
+              {user && <Guarantor user={user} />}
             </div>
           </div>
         </div>
