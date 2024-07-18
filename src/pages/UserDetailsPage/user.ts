@@ -29,4 +29,8 @@ export const user: UserType = {
   guarantorEmail: 'debby@gmail.com',
   guarantorPhoneNumber: '07060780922',
   guarantorRelationship: 'Sister',
+  username: 'Grace',
+  status: 'Active',
+  organization: 'Lendsqr',
+  dateJoined: 'May 5, 2018 10:00 AM',
 };
